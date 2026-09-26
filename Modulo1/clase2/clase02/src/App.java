@@ -7,7 +7,7 @@ public class App {
         System.out.println("El valor del IVA es: " + IVA);
         System.out.println("El número de días en una semana es: " + DIAS_SEMANA);
 
-        //final double IVA = 0.20; 
+        //final double IVA = 0.20;
         // Esto generará un error de compilación porque IVA es una constante
 
         //! Suma
