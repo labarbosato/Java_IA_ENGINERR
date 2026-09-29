@@ -29,6 +29,7 @@ public class ProductoController {
 
     @PostMapping
     public Producto crearProducto(@RequestBody Producto producto) {
+
         return productoService.agregarProducto(producto);
     }
 }
