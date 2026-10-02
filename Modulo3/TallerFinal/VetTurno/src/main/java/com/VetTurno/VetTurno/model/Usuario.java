@@ -1,4 +1,4 @@
-package com.JavaSabados.gestor_productos.model;
+package com.VetTurno.VetTurno.model;
 
 import jakarta.persistence.*;
 
@@ -13,16 +13,14 @@ public class Usuario {
     @Column(unique = true)
     private String email;
 
-    private String contrasena;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-
     public Usuario() {
     }
 
-    // getters y setters de todos los campos
 
     public Long getId() {
         return id;
@@ -40,12 +38,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getcontrasena() {
-        return contrasena;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Rol getRol() {
