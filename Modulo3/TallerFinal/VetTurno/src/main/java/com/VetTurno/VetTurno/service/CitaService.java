@@ -10,6 +10,7 @@ import com.VetTurno.VetTurno.repository.MascotaRepository;
 import com.VetTurno.VetTurno.repository.VeterinarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,13 @@ public class CitaService {
                 .orElseThrow(()-> new IllegalArgumentException("La mascota no fue encontrado con el ID: " + request.getMascotaId()));
         Veterinario veterinario = veterinarioRepository.findById(request.getVeterinarioId())
                 .orElseThrow(()-> new IllegalArgumentException("El Veterinario no fue encontrado con el ID: " + request.getVeterinarioId()));
+        if (request.getFechaHora().isBefore(LocalDateTime.now())){
+            throw new IllegalArgumentException("La fecha debe de ser futura.");
+        }
+
+        if (citaRepository.existsByVeterinarioIdAndFechaHora(request.getVeterinarioId(), request.getFechaHora())) {
+            throw new IllegalArgumentException("El veterinario ya tiene una cita en ese horario.");
+        }
 
         Cita cita = new Cita();
         cita.setFechaHora(request.getFechaHora());
@@ -47,6 +55,16 @@ public class CitaService {
         List<CitaDTO> dtos = new ArrayList<>();
 
         for (Cita c : citas){
+            dtos.add(new CitaDTO(c));
+        }
+        return dtos;
+    }
+
+    public List<CitaDTO> listarPorVeterinario(Long veterinarioId) {
+        List<Cita> citas = citaRepository.findByVeterinarioId(veterinarioId);
+        List<CitaDTO> dtos = new ArrayList<>();
+
+        for (Cita c : citas) {
             dtos.add(new CitaDTO(c));
         }
         return dtos;

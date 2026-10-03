@@ -28,4 +28,9 @@ public class CitaController {
         CitaDTO creado = citaService.crearCita(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
+
+    @GetMapping("/veterinario/{id}")
+    public ResponseEntity<List<CitaDTO>> obtenerPorVeterinario(@PathVariable Long id) {
+        return ResponseEntity.ok(citaService.listarPorVeterinario(id));
+    }
 }
